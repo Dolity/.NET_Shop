@@ -1,0 +1,32 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ShopMSU_PRO.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="username1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">admin</Value>
+    </Setting>
+    <Setting Name="password1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">007</Value>
+    </Setting>
+    <Setting Name="username2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">shop</Value>
+    </Setting>
+    <Setting Name="password2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">999</Value>
+    </Setting>
+    <Setting Name="username3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">store</Value>
+    </Setting>
+    <Setting Name="password3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">000</Value>
+    </Setting>
+    <Setting Name="APD65_63011212004ConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;Data Source=202.28.34.250\SQLEXPRESS;Initial Catalog=APD65_63011212004;Persist Security Info=True;User ID=APD65_63011212004;Password=IBWTWVJX&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=202.28.34.250\SQLEXPRESS;Initial Catalog=APD65_63011212004;Persist Security Info=True;User ID=APD65_63011212004;Password=IBWTWVJX</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

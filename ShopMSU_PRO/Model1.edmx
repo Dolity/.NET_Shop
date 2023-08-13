@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="shopMSU1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ShopCustomer">
+          <Key>
+            <PropertyRef Name="customer_ID" />
+          </Key>
+          <Property Name="customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_Fname" Type="varchar" MaxLength="25" />
+          <Property Name="customer_Lname" Type="varchar" MaxLength="25" />
+          <Property Name="customer_Address" Type="varchar" MaxLength="60" />
+          <Property Name="customer_TEL" Type="int" />
+          <Property Name="employee_ID" Type="int" />
+          <Property Name="customer_Username" Type="varchar" MaxLength="25" />
+          <Property Name="customer_Password" Type="varchar" MaxLength="20" />
+          <Property Name="customer_Serial" Type="int" />
+          <Property Name="orderitem_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="ShopEmployee">
+          <Key>
+            <PropertyRef Name="employee_ID" />
+          </Key>
+          <Property Name="employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_Fname" Type="varchar" MaxLength="25" />
+          <Property Name="employee_Lname" Type="varchar" MaxLength="25" />
+          <Property Name="employee_Address" Type="varchar" MaxLength="60" />
+          <Property Name="employee_TEL" Type="int" />
+          <Property Name="employee_Username" Type="varchar" MaxLength="25" />
+          <Property Name="employee_Password" Type="varchar" MaxLength="20" />
+          <Property Name="employee_Serial" Type="int" />
+          <Property Name="employee_Status" Type="int" />
+        </EntityType>
+        <EntityType Name="ShopOrder">
+          <Key>
+            <PropertyRef Name="order_ID" />
+          </Key>
+          <Property Name="order_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_ID" Type="int" />
+          <Property Name="customer_Serial" Type="int" />
+          <Property Name="order_DATE" Type="datetime" />
+          <Property Name="order_NOW" Type="date" />
+          <Property Name="order_Total" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="order_Serial" Type="int" />
+        </EntityType>
+        <EntityType Name="ShopOrderItem">
+          <Key>
+            <PropertyRef Name="orderItem_ID" />
+          </Key>
+          <Property Name="orderItem_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_ID" Type="int" />
+          <Property Name="product_ID" Type="int" />
+          <Property Name="orderItem_Name" Type="varchar" MaxLength="500" />
+          <Property Name="orderItem_Amount" Type="int" />
+          <Property Name="orderItem_Price" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="orderItem_Total" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="orderItem_Discount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="customer_Serial" Type="int" />
+          <Property Name="orderItem_Serial" Type="int" />
+        </EntityType>
+        <EntityType Name="ShopProduct">
+          <Key>
+            <PropertyRef Name="product_ID" />
+          </Key>
+          <Property Name="product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_Type" Type="varchar" MaxLength="100" />
+          <Property Name="product_Name" Type="varchar" MaxLength="500" />
+          <Property Name="product_Detail" Type="varchar" MaxLength="500" />
+          <Property Name="product_All" Type="int" />
+          <Property Name="product_Remain" Type="int" />
+          <Property Name="product_Price" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="product_Discount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="product_IMG" Type="varchar" MaxLength="500" />
+          <Property Name="product_Serial" Type="int" />
+        </EntityType>
+        <EntityType Name="ShopSale">
+          <Key>
+            <PropertyRef Name="sale_ID" />
+          </Key>
+          <Property Name="sale_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_ID1" Type="int" />
+          <Property Name="product_ID2" Type="int" />
+        </EntityType>
+        <EntityType Name="ShopType">
+          <Key>
+            <PropertyRef Name="type_ID" />
+          </Key>
+          <Property Name="type_ID" Type="int" Nullable="false" />
+          <Property Name="type_Name" Type="varchar" MaxLength="50" />
+          <Property Name="type_Serial" Type="int" />
+        </EntityType>
+        <Association Name="FK_ShopCustomer_ShopEmployee">
+          <End Role="ShopEmployee" Type="Self.ShopEmployee" Multiplicity="0..1" />
+          <End Role="ShopCustomer" Type="Self.ShopCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopEmployee">
+              <PropertyRef Name="employee_ID" />
+            </Principal>
+            <Dependent Role="ShopCustomer">
+              <PropertyRef Name="employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopOrder_ShopCustomer">
+          <End Role="ShopCustomer" Type="Self.ShopCustomer" Multiplicity="0..1" />
+          <End Role="ShopOrder" Type="Self.ShopOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopCustomer">
+              <PropertyRef Name="customer_ID" />
+            </Principal>
+            <Dependent Role="ShopOrder">
+              <PropertyRef Name="customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopOrderItem_ShopOrder">
+          <End Role="ShopOrder" Type="Self.ShopOrder" Multiplicity="0..1" />
+          <End Role="ShopOrderItem" Type="Self.ShopOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopOrder">
+              <PropertyRef Name="order_ID" />
+            </Principal>
+            <Dependent Role="ShopOrderItem">
+              <PropertyRef Name="order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopOrderItem_ShopProduct1">
+          <End Role="ShopProduct" Type="Self.ShopProduct" Multiplicity="0..1" />
+          <End Role="ShopOrderItem" Type="Self.ShopOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopProduct">
+              <PropertyRef Name="product_ID" />
+            </Principal>
+            <Dependent Role="ShopOrderItem">
+              <PropertyRef Name="product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="shopMSU1StoreContainer">
+          <EntitySet Name="ShopCustomer" EntityType="Self.ShopCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopEmployee" EntityType="Self.ShopEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopOrder" EntityType="Self.ShopOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopOrderItem" EntityType="Self.ShopOrderItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopProduct" EntityType="Self.ShopProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopSale" EntityType="Self.ShopSale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopType" EntityType="Self.ShopType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ShopCustomer_ShopEmployee" Association="Self.FK_ShopCustomer_ShopEmployee">
+            <End Role="ShopEmployee" EntitySet="ShopEmployee" />
+            <End Role="ShopCustomer" EntitySet="ShopCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopOrder_ShopCustomer" Association="Self.FK_ShopOrder_ShopCustomer">
+            <End Role="ShopCustomer" EntitySet="ShopCustomer" />
+            <End Role="ShopOrder" EntitySet="ShopOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopOrderItem_ShopOrder" Association="Self.FK_ShopOrderItem_ShopOrder">
+            <End Role="ShopOrder" EntitySet="ShopOrder" />
+            <End Role="ShopOrderItem" EntitySet="ShopOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopOrderItem_ShopProduct1" Association="Self.FK_ShopOrderItem_ShopProduct1">
+            <End Role="ShopProduct" EntitySet="ShopProduct" />
+            <End Role="ShopOrderItem" EntitySet="ShopOrderItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="shopMSU1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ShopCustomer">
+          <Key>
+            <PropertyRef Name="customer_ID" />
+          </Key>
+          <Property Name="customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_Fname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="customer_Lname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="customer_Address" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="customer_TEL" Type="Int32" />
+          <Property Name="employee_ID" Type="Int32" />
+          <Property Name="customer_Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="customer_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="customer_Serial" Type="Int32" />
+          <Property Name="orderitem_ID" Type="Int32" />
+          <NavigationProperty Name="ShopEmployee" Relationship="Self.FK_ShopCustomer_ShopEmployee" FromRole="ShopCustomer" ToRole="ShopEmployee" />
+          <NavigationProperty Name="ShopOrders" Relationship="Self.FK_ShopOrder_ShopCustomer" FromRole="ShopCustomer" ToRole="ShopOrder" />
+        </EntityType>
+        <EntityType Name="ShopEmployee">
+          <Key>
+            <PropertyRef Name="employee_ID" />
+          </Key>
+          <Property Name="employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_Fname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="employee_Lname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="employee_Address" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="employee_TEL" Type="Int32" />
+          <Property Name="employee_Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="employee_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_Serial" Type="Int32" />
+          <Property Name="employee_Status" Type="Int32" />
+          <NavigationProperty Name="ShopCustomers" Relationship="Self.FK_ShopCustomer_ShopEmployee" FromRole="ShopEmployee" ToRole="ShopCustomer" />
+        </EntityType>
+        <EntityType Name="ShopOrder">
+          <Key>
+            <PropertyRef Name="order_ID" />
+          </Key>
+          <Property Name="order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_ID" Type="Int32" />
+          <Property Name="customer_Serial" Type="Int32" />
+          <Property Name="order_DATE" Type="DateTime" Precision="3" />
+          <Property Name="order_NOW" Type="DateTime" Precision="0" />
+          <Property Name="order_Total" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="order_Serial" Type="Int32" />
+          <NavigationProperty Name="ShopCustomer" Relationship="Self.FK_ShopOrder_ShopCustomer" FromRole="ShopOrder" ToRole="ShopCustomer" />
+          <NavigationProperty Name="ShopOrderItems" Relationship="Self.FK_ShopOrderItem_ShopOrder" FromRole="ShopOrder" ToRole="ShopOrderItem" />
+        </EntityType>
+        <EntityType Name="ShopOrderItem">
+          <Key>
+            <PropertyRef Name="orderItem_ID" />
+          </Key>
+          <Property Name="orderItem_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_ID" Type="Int32" />
+          <Property Name="product_ID" Type="Int32" />
+          <Property Name="orderItem_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="orderItem_Amount" Type="Int32" />
+          <Property Name="orderItem_Price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="orderItem_Total" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="orderItem_Discount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="customer_Serial" Type="Int32" />
+          <Property Name="orderItem_Serial" Type="Int32" />
+          <NavigationProperty Name="ShopOrder" Relationship="Self.FK_ShopOrderItem_ShopOrder" FromRole="ShopOrderItem" ToRole="ShopOrder" />
+          <NavigationProperty Name="ShopProduct" Relationship="Self.FK_ShopOrderItem_ShopProduct1" FromRole="ShopOrderItem" ToRole="ShopProduct" />
+        </EntityType>
+        <EntityType Name="ShopProduct">
+          <Key>
+            <PropertyRef Name="product_ID" />
+          </Key>
+          <Property Name="product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="product_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="product_Detail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="product_All" Type="Int32" />
+          <Property Name="product_Remain" Type="Int32" />
+          <Property Name="product_Price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="product_Discount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="product_IMG" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="product_Serial" Type="Int32" />
+          <NavigationProperty Name="ShopOrderItems" Relationship="Self.FK_ShopOrderItem_ShopProduct1" FromRole="ShopProduct" ToRole="ShopOrderItem" />
+        </EntityType>
+        <EntityType Name="ShopSale">
+          <Key>
+            <PropertyRef Name="sale_ID" />
+          </Key>
+          <Property Name="sale_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_ID1" Type="Int32" />
+          <Property Name="product_ID2" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ShopType">
+          <Key>
+            <PropertyRef Name="type_ID" />
+          </Key>
+          <Property Name="type_ID" Type="Int32" Nullable="false" />
+          <Property Name="type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type_Serial" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_ShopCustomer_ShopEmployee">
+          <End Role="ShopEmployee" Type="Self.ShopEmployee" Multiplicity="0..1" />
+          <End Role="ShopCustomer" Type="Self.ShopCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopEmployee">
+              <PropertyRef Name="employee_ID" />
+            </Principal>
+            <Dependent Role="ShopCustomer">
+              <PropertyRef Name="employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopOrder_ShopCustomer">
+          <End Role="ShopCustomer" Type="Self.ShopCustomer" Multiplicity="0..1" />
+          <End Role="ShopOrder" Type="Self.ShopOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopCustomer">
+              <PropertyRef Name="customer_ID" />
+            </Principal>
+            <Dependent Role="ShopOrder">
+              <PropertyRef Name="customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopOrderItem_ShopOrder">
+          <End Role="ShopOrder" Type="Self.ShopOrder" Multiplicity="0..1" />
+          <End Role="ShopOrderItem" Type="Self.ShopOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopOrder">
+              <PropertyRef Name="order_ID" />
+            </Principal>
+            <Dependent Role="ShopOrderItem">
+              <PropertyRef Name="order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopOrderItem_ShopProduct1">
+          <End Role="ShopProduct" Type="Self.ShopProduct" Multiplicity="0..1" />
+          <End Role="ShopOrderItem" Type="Self.ShopOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopProduct">
+              <PropertyRef Name="product_ID" />
+            </Principal>
+            <Dependent Role="ShopOrderItem">
+              <PropertyRef Name="product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="APD65_63011212004Entities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ShopCustomers" EntityType="Self.ShopCustomer" />
+          <EntitySet Name="ShopEmployees" EntityType="Self.ShopEmployee" />
+          <EntitySet Name="ShopOrders" EntityType="Self.ShopOrder" />
+          <EntitySet Name="ShopOrderItems" EntityType="Self.ShopOrderItem" />
+          <EntitySet Name="ShopProducts" EntityType="Self.ShopProduct" />
+          <EntitySet Name="ShopSales" EntityType="Self.ShopSale" />
+          <EntitySet Name="ShopTypes" EntityType="Self.ShopType" />
+          <AssociationSet Name="FK_ShopCustomer_ShopEmployee" Association="Self.FK_ShopCustomer_ShopEmployee">
+            <End Role="ShopEmployee" EntitySet="ShopEmployees" />
+            <End Role="ShopCustomer" EntitySet="ShopCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopOrder_ShopCustomer" Association="Self.FK_ShopOrder_ShopCustomer">
+            <End Role="ShopCustomer" EntitySet="ShopCustomers" />
+            <End Role="ShopOrder" EntitySet="ShopOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopOrderItem_ShopOrder" Association="Self.FK_ShopOrderItem_ShopOrder">
+            <End Role="ShopOrder" EntitySet="ShopOrders" />
+            <End Role="ShopOrderItem" EntitySet="ShopOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopOrderItem_ShopProduct1" Association="Self.FK_ShopOrderItem_ShopProduct1">
+            <End Role="ShopProduct" EntitySet="ShopProducts" />
+            <End Role="ShopOrderItem" EntitySet="ShopOrderItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="shopMSU1StoreContainer" CdmEntityContainer="APD65_63011212004Entities2">
+          <EntitySetMapping Name="ShopCustomers">
+            <EntityTypeMapping TypeName="shopMSU1.ShopCustomer">
+              <MappingFragment StoreEntitySet="ShopCustomer">
+                <ScalarProperty Name="customer_ID" ColumnName="customer_ID" />
+                <ScalarProperty Name="customer_Fname" ColumnName="customer_Fname" />
+                <ScalarProperty Name="customer_Lname" ColumnName="customer_Lname" />
+                <ScalarProperty Name="customer_Address" ColumnName="customer_Address" />
+                <ScalarProperty Name="customer_TEL" ColumnName="customer_TEL" />
+                <ScalarProperty Name="employee_ID" ColumnName="employee_ID" />
+                <ScalarProperty Name="customer_Username" ColumnName="customer_Username" />
+                <ScalarProperty Name="customer_Password" ColumnName="customer_Password" />
+                <ScalarProperty Name="customer_Serial" ColumnName="customer_Serial" />
+                <ScalarProperty Name="orderitem_ID" ColumnName="orderitem_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopEmployees">
+            <EntityTypeMapping TypeName="shopMSU1.ShopEmployee">
+              <MappingFragment StoreEntitySet="ShopEmployee">
+                <ScalarProperty Name="employee_ID" ColumnName="employee_ID" />
+                <ScalarProperty Name="employee_Fname" ColumnName="employee_Fname" />
+                <ScalarProperty Name="employee_Lname" ColumnName="employee_Lname" />
+                <ScalarProperty Name="employee_Address" ColumnName="employee_Address" />
+                <ScalarProperty Name="employee_TEL" ColumnName="employee_TEL" />
+                <ScalarProperty Name="employee_Username" ColumnName="employee_Username" />
+                <ScalarProperty Name="employee_Password" ColumnName="employee_Password" />
+                <ScalarProperty Name="employee_Serial" ColumnName="employee_Serial" />
+                <ScalarProperty Name="employee_Status" ColumnName="employee_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopOrders">
+            <EntityTypeMapping TypeName="shopMSU1.ShopOrder">
+              <MappingFragment StoreEntitySet="ShopOrder">
+                <ScalarProperty Name="order_ID" ColumnName="order_ID" />
+                <ScalarProperty Name="customer_ID" ColumnName="customer_ID" />
+                <ScalarProperty Name="customer_Serial" ColumnName="customer_Serial" />
+                <ScalarProperty Name="order_DATE" ColumnName="order_DATE" />
+                <ScalarProperty Name="order_NOW" ColumnName="order_NOW" />
+                <ScalarProperty Name="order_Total" ColumnName="order_Total" />
+                <ScalarProperty Name="order_Serial" ColumnName="order_Serial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopOrderItems">
+            <EntityTypeMapping TypeName="shopMSU1.ShopOrderItem">
+              <MappingFragment StoreEntitySet="ShopOrderItem">
+                <ScalarProperty Name="orderItem_ID" ColumnName="orderItem_ID" />
+                <ScalarProperty Name="order_ID" ColumnName="order_ID" />
+                <ScalarProperty Name="product_ID" ColumnName="product_ID" />
+                <ScalarProperty Name="orderItem_Name" ColumnName="orderItem_Name" />
+                <ScalarProperty Name="orderItem_Amount" ColumnName="orderItem_Amount" />
+                <ScalarProperty Name="orderItem_Price" ColumnName="orderItem_Price" />
+                <ScalarProperty Name="orderItem_Total" ColumnName="orderItem_Total" />
+                <ScalarProperty Name="orderItem_Discount" ColumnName="orderItem_Discount" />
+                <ScalarProperty Name="customer_Serial" ColumnName="customer_Serial" />
+                <ScalarProperty Name="orderItem_Serial" ColumnName="orderItem_Serial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopProducts">
+            <EntityTypeMapping TypeName="shopMSU1.ShopProduct">
+              <MappingFragment StoreEntitySet="ShopProduct">
+                <ScalarProperty Name="product_ID" ColumnName="product_ID" />
+                <ScalarProperty Name="product_Type" ColumnName="product_Type" />
+                <ScalarProperty Name="product_Name" ColumnName="product_Name" />
+                <ScalarProperty Name="product_Detail" ColumnName="product_Detail" />
+                <ScalarProperty Name="product_All" ColumnName="product_All" />
+                <ScalarProperty Name="product_Remain" ColumnName="product_Remain" />
+                <ScalarProperty Name="product_Price" ColumnName="product_Price" />
+                <ScalarProperty Name="product_Discount" ColumnName="product_Discount" />
+                <ScalarProperty Name="product_IMG" ColumnName="product_IMG" />
+                <ScalarProperty Name="product_Serial" ColumnName="product_Serial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopSales">
+            <EntityTypeMapping TypeName="shopMSU1.ShopSale">
+              <MappingFragment StoreEntitySet="ShopSale">
+                <ScalarProperty Name="sale_ID" ColumnName="sale_ID" />
+                <ScalarProperty Name="product_ID1" ColumnName="product_ID1" />
+                <ScalarProperty Name="product_ID2" ColumnName="product_ID2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopTypes">
+            <EntityTypeMapping TypeName="shopMSU1.ShopType">
+              <MappingFragment StoreEntitySet="ShopType">
+                <ScalarProperty Name="type_ID" ColumnName="type_ID" />
+                <ScalarProperty Name="type_Name" ColumnName="type_Name" />
+                <ScalarProperty Name="type_Serial" ColumnName="type_Serial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

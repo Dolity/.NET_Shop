@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab04a6a5c79a420c95cb78098719d35f" Name="Diagram1">
+        <EntityTypeShape EntityType="shopMSU1.ShopCustomer" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopMSU1.ShopEmployee" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopMSU1.ShopOrder" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopMSU1.ShopOrderItem" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopMSU1.ShopProduct" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopMSU1.ShopSale" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shopMSU1.ShopType" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="shopMSU1.FK_ShopCustomer_ShopEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="shopMSU1.FK_ShopOrder_ShopCustomer" ManuallyRouted="false" />
+        <AssociationConnector Association="shopMSU1.FK_ShopOrderItem_ShopOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="shopMSU1.FK_ShopOrderItem_ShopProduct1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
